@@ -6,7 +6,7 @@ import time
 import traceback
 import queue
 from ultralytics.utils import ops
-# import numpy as np
+import numpy as np
 # import torch
 # import cv2
 
