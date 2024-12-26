@@ -1,0 +1,109 @@
+monitor:
+  # 发送类型 0:网卡http方式,1:网卡udp方式,2:网卡tcp方式,3:串口dtuhttp方式,4:串口dtuudp方式,5:串口dtutcp方式
+  send:
+    type: 2
+  # 设备类型 0:消化内镜AI,1:膀胱内镜AI,2:超声内镜
+  device:
+    type: 2
+    package: eus  # 消化：ge；EUS：eus
+  # 包围框状态：0截图显示,1截图不显示,2实时显示,3实时不显示
+  bbox:
+    state: 0
+  # 硬件版本
+  hardware:
+    version: "01000000"
+  # 软件版本
+  software:
+    version: "04000000"
+  # 医院信息
+  hospital:
+    name: 郑大一附院
+    section: 消化内镜诊间1
+  # 通信信息
+  communication:
+    type: 1  # 0为Wi-Fi,1为RJ45,2为485,3为232
+    addr_type: 1  # 地址类型：0为ICCID，1为MAC，2为手机号，3为自定义
+    addr: A85E45B4898E
+  # 设备信息
+  device_id:
+    type: 0  # 设备编号类型 0:8byte自定义字符串,1:8byte网卡MAC地址
+    id: 1122334455667788
+  # 其他信息
+  switches: 0
+  serial_ports: 1
+  monitor:
+    path: C:\Users\zengf\AppData\Local\Google\Chrome\Application\chrome.exe
+    soft_name: chrome.exe
+    alive_interval: 5  # 单位为秒
+  serial:
+    port: COM3
+  location:
+    longitude: 113.62
+    latitude: 34.75
+  status_interval: 10  # 统计状态的时间间隔，单位为秒
+
+server:
+  socket:
+    addr: 127.0.0.1
+    port: 7080
+  web:
+    addr: 127.0.0.1
+    port: 8080
+  live:
+    addr: 127.0.0.1
+    port: 8848
+  frame_size: 1000000  # 针对AFN内容进行分帧大小（Byte数组大小）
+
+local:
+  ws_port: 8082
+  base:
+    web_path: user
+    image_path: D:/eus  # 默认图片存储根目录
+    video_path: D:/video  # 默认视频存储根目录
+  max_task_per_sec: 40  # 每秒最大处理任务数量
+  local_server_port: 8080
+  screen:
+    x: 0
+    y: 0
+    width: 640
+    height: 640
+  screenshot: 0  # 0：原截图；1：预测截图
+
+proactive:
+  device_info_interval: 30  # 单位分
+  device_state_interval: 1  # 单位分
+  device_paths_interval: 30  # 单位分
+  match_video_patient: 5  # 单位分
+  patient_detail_monitor: 1  # 单位分
+
+patient:
+  free_time: 1  # 没有患者处理时候的空闲时间
+  read:
+    all_video: 30  # 读取当前的移动硬盘下的视频文件，单位分
+    all_time: 3  # 读取所有时间文件夹，单位分
+    today_before_patient: 360  # 读取所有时间的患者，单位分
+    today_patient: 1  # 读取今天的患者，单位分
+  hello_time: 2  # 和服务器打招呼的时间间隔
+
+ai:
+  models:
+    target_name: pancreas20221026.wts
+    qc_name: pancreas20221026.wts
+    env_name: pancreas20221026.wts
+
+  qc:
+    count: 24
+    prob_threshold: 0.0
+  ai_ip: 127.0.0.1
+  ports:
+    info: 9521  # 提供AI预测信息实时推送
+    live: 9522  # 提供直播实时推送
+  render:
+    ip: 127.0.0.1
+    port: 9523
+  monitor_h5:
+    live_port: 9524  # 视频流推送HTML
+    info_port: 9525  # AI实时预测推送HTML
+  monitor_gui:
+    live_port: 9526  # 视频流推送GUI
+    info_port: 9527  # AI实时预测推送GUI
